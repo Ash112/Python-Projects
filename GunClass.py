@@ -24,46 +24,6 @@ class Gun:
 
         Self.GunStock = Stock
 
-        #Light Ammo
-
-        if(Self.Bullet==BulletType(1)):
-
-            Self.DamagePerBullet = 10
-
-            Self.MaxAmmoCount = 30
-
-            Self.CurrAmmoCount = 10
-
-        # Heavy Ammo
-
-        elif(Self.Bullet==BulletType(2)):
-
-            Self.DamagePerBullet = 25
-
-            Self.MaxAmmoCount = 20
-
-            Self.CurrAmmoCount = 10
-
-        # ShotGun Ammo
-
-        elif (Self.Bullet == BulletType(3)):
-
-            Self.DamagePerBullet = 35
-
-            Self.MaxAmmoCount = 10
-
-            Self.CurrAmmoCount = 5
-
-        # Sniper Ammo
-
-        elif (Self.Bullet == BulletType(4)):
-
-            Self.DamagePerBullet = 45
-
-            Self.MaxAmmoCount = 5
-
-            Self.CurrAmmoCount = 3
-
 
     def FireGun(Self):
 
@@ -87,42 +47,33 @@ class Gun:
 
     def GunProps(Self):
 
-        print("GunName = "+str(Self.Name))
+        print("-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*")
 
-        print("MaxAmmo = "+str(Self.MaxAmmoCount))
+        print("GunName             = " + str(Self.Name))
 
-        print("CurrAmmo = " + str(Self.CurrAmmoCount))
+        print("BulletType          = " + str(Self.Bullet))
 
-        print("BulletType = " + str(Self.Bullet))
+        print("-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*")
 
-        print("DamagePerBullet = " + str(Self.DamagePerBullet))
+        print("MaxAmmo             = " + str(Self.MaxAmmoCount))
 
-        print("ScopeAttachment = " + str(Self.ScopeAttachment))
+        print("CurrAmmo            = " + str(Self.CurrAmmoCount))
 
-        print("Magazine = " + str(Self.Magazine))
+        print("DamagePerBullet     = " + str(Self.DamagePerBullet))
 
-        print("BarrelStabilzer = " + str(Self.BarrelStabilzer))
+        print("-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*")
 
-        print("GunStock = " + str(Self.GunStock))
+        print("ScopeAttachment     = " + str(Self.ScopeAttachment))
 
-# Child Class Pistol
+        print("Magazine            = " + str(Self.Magazine))
 
-class Pistol(Gun):
+        print("BarrelStabilzer     = " + str(Self.BarrelStabilzer))
 
-    def __init__(Self, Name):
-        super().__init__(Name)
+        print("GunStock            = " + str(Self.GunStock))
 
-        # Inherits from Gun Class
+        print("-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*")
 
-        Self.Name = Name
-
-        Self.MaxAmmoCount = 15
-
-        Self.CurrAmmoCount = 10
-
-        Self.BulletType = "LightAmmo"
-
-        Self.DamagePerBullet = 5
+# Random Gun Generator Class
 
 class RanGun(Gun):
 
@@ -141,3 +92,43 @@ class RanGun(Gun):
         Self.BarrelStabilzer = BarrelStabilizer(randrange(1,3,1))
 
         Self.GunStock = Stock(randrange(1,3,1))
+
+        #Light Ammo
+
+        if (Self.Bullet == BulletType(1)):
+
+            Self.DamagePerBullet = 10
+
+            Self.MaxAmmoCount = 30
+
+            Self.CurrAmmoCount = 10
+
+        # Heavy Ammo
+
+        elif (Self.Bullet == BulletType(2)):
+
+            Self.DamagePerBullet = 25
+
+            Self.MaxAmmoCount = 20
+
+            Self.CurrAmmoCount = 10
+
+            # ShotGun Ammo
+
+        elif (Self.Bullet == BulletType(3)):
+
+            Self.DamagePerBullet = 35
+
+            Self.MaxAmmoCount = 10
+
+            Self.CurrAmmoCount = 5
+
+            # Sniper Ammo
+
+        elif (Self.Bullet == BulletType(4)):
+
+            Self.DamagePerBullet = 45
+
+            Self.MaxAmmoCount = 5
+
+            Self.CurrAmmoCount = 3

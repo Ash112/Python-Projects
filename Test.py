@@ -1,10 +1,6 @@
 import GunClass
 
-import GunMods
-
-
-
-RandomGun = GunClass.RanGun("rando")
+RandomGun = GunClass.RanGun("Random")
 
 print(RandomGun.GunProps())
 

@@ -7,21 +7,24 @@ class BulletType(Enum):
     SniperAmmo=4
 
 class ScopeClass(Enum):
-    ScopeNone = 1
-    Scope1X = 2
-    Scope2X = 3
+    NoScope = 1
+    Scope_1X = 2
+    Scope_2X = 3
+    Scope_3X = 4
+    Scope_6X = 5
+    Scope_10X = 6
 
 class ExtentedMagClass(Enum):
     DefaultMag = 1
-    MedMag = 2
+    MediumMag = 2
     LargeMag = 3
 
 class BarrelStabilizer(Enum):
-    Level1Stabilizer = 1
-    Level2Stabilizer = 2
-    Level3Stabilizer = 3
+    Level_1_Stabilizer = 1
+    Level_2_Stabilizer = 2
+    Level_3_Stabilizer = 3
 
 class Stock(Enum):
-    Level1Stock = 1
-    Level2Stock = 2
-    Level3Stock = 3
+    Level_1_Stock = 1
+    Level_2_Stock = 2
+    Level_3_Stock = 3

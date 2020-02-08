@@ -55,9 +55,9 @@ class Gun:
 
         print("GunName             = " + str(Self.Name))
 
-        print("BulletType          = " + str(Self.Bullet))
+        print("BulletType          = " + str(Self.Bullet.name))
 
-        print("Accuracy            = " + str(Self.Accuracy))
+        print("Accuracy            = " + str(Self.Accuracy)+"/10")
 
         print("Stability           = " + str(Self.Stability))
 
@@ -71,13 +71,13 @@ class Gun:
 
         print("-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*")
 
-        print("ScopeAttachment     = " + str(Self.ScopeAttachment))
+        print("ScopeAttachment     = " + str(Self.ScopeAttachment.name))
 
-        print("Magazine            = " + str(Self.Magazine))
+        print("Magazine            = " + str(Self.Magazine.name))
 
-        print("BarrelStabilzer     = " + str(Self.BarrelStabilzer))
+        print("BarrelStabilzer     = " + str(Self.BarrelStabilzer.name))
 
-        print("GunStock            = " + str(Self.GunStock))
+        print("GunStock            = " + str(Self.GunStock.name))
 
         print("-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*")
 
@@ -93,7 +93,7 @@ class RanGun(Gun):
 
         Self.Bullet = BulletType(randrange(1,4,1))
 
-        Self.ScopeAttachment = ScopeClass(randrange(1,3,1))
+        Self.ScopeAttachment = ScopeClass(randrange(1,6,1))
 
         Self.Magazine = ExtentedMagClass(randrange(1,3,1))
 

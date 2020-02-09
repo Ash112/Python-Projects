@@ -29,11 +29,14 @@ class Gun:
         Self.GunStock = Stock
 
 
+
     def FireGun(Self):
 
         if (Self.CurrAmmoCount != 0):
 
             Self.CurrAmmoCount -= 1
+
+
 
         else:
 

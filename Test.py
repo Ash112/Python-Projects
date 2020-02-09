@@ -1,23 +1,40 @@
-import GunClass
-import random
+import PlayerClass
+import MapGen
+import time
 
-GunNames=["Ages","Dragon","Omni","Angel","Eon","Plasma","Armor","Fallen","Scale","Ashen"
-        ,"Fang","Scar","Atomic","Flame","Scarlet","Black","Fire","Shade","Blade","Firefight"
-        ,"Shadow","Blaze","Galaxy","Storm","Burn","Hades","Steel","Chaos","Incendiary","Sworn"
-        ,"Chrome","Jade","Tornadic","Claw","Jadeite","Void","Crimson","Light","Vortex","Crypt"
-        ,"Oath","Wing","Draconic","Oblivion","Xeno"]
+#------------TEST-------------#
 
-def randomNameGen():
+#RandomMap = MapGen.Map(1,1)
 
-    num = random.randrange(0,len(GunNames),1)
+#print(RandomMap.Init_P1_Loc())
+#print(RandomMap.Init_P2_Loc())
 
-    return GunNames[num]
+#print(RandomMap.PrintMap())
 
+#print(RandomMap.P_Dist())
 
-RandomGun = GunClass.RanGun(randomNameGen())
+#for x in range(4):
 
-print(RandomGun.GunProps())
+    #if(RandomMap.PrintMap()!="SAME LOCATION"):
+        #print((x))
+        #print(RandomMap.MoveRight())
+       # print(RandomMap.PrintMap())
+        #print(RandomMap.P_Dist())
+        #time.sleep(0.5)
+        #print("\n"*1)
 
+    #else:
 
+        #break
+#===================================
+NewMap =MapGen.Map(6,6)
 
+NewP1 = PlayerClass.Player("Aspro")
 
+P1_Pos=NewMap.Init_P1_Loc()
+P2_Pos=NewMap.Init_P2_Loc()
+
+print(NewMap.PrintMap())
+print(NewP1.SetPos(P1_Pos[0],P1_Pos[1]))
+
+NewP1.PlayerGun.FireGun()

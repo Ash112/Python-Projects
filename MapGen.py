@@ -261,30 +261,3 @@ class Map:
 
                 return "No Down Movement P2"
 
-
-
-#------------TEST-------------#
-
-RandomMap = Map(5,5)
-
-print(RandomMap.Init_P1_Loc())
-print(RandomMap.Init_P2_Loc())
-
-print(RandomMap.PrintMap())
-
-print(RandomMap.P_Dist())
-
-
-for x in range(1):
-
-    if(RandomMap.PrintMap()!="SAME LOCATION"):
-        print((x))
-        print(RandomMap.MoveRight())
-        print(RandomMap.PrintMap())
-        print(RandomMap.P_Dist())
-        time.sleep(0.5)
-        print("\n"*1)
-
-    else:
-
-        break

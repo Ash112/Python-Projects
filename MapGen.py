@@ -1,5 +1,6 @@
 import random
 import math
+import time
 
 # Class for generating and traversing Map
 class Map:
@@ -16,12 +17,19 @@ class Map:
 
         Self.P2_Pos = []
 
+
+
     # prints th map in the current state
     def PrintMap(Self):
+
+        if (Self.P1_Pos==Self.P2_Pos):
+
+            return "SAME LOCATION"
 
         for num in Self.Arr:
 
             print(num, sep="  ")
+
 
     # Initializes P1 location randomly
     def Init_P1_Loc(Self):
@@ -52,14 +60,14 @@ class Map:
 
         # Distance between Points Forumla
 
-        dist = ((Self.P2_Pos[0]-Self.P1_Pos[0])*(Self.P2_Pos[0]-Self.P1_Pos[0]))
-        +((Self.P2_Pos[1]-Self.P1_Pos[1])*(Self.P2_Pos[1]-Self.P1_Pos[1]))
+        dist = ((Self.P2_Pos[0]-Self.P1_Pos[0])*(Self.P2_Pos[0]-Self.P1_Pos[0]))+((Self.P2_Pos[1]-Self.P1_Pos[1])*(Self.P2_Pos[1]-Self.P1_Pos[1]))
 
         return math.sqrt(dist)
 
     # Moves P1 1 unit to Right
     def MoveRight(Self):
 
+        P2_Pos = Self.MoveRandomP2()
         # Gets Current Position of P1
 
         CurrentPosx = Self.P1_Pos[0]
@@ -78,22 +86,23 @@ class Map:
 
             Self.P1_Pos = [CurrentPosx, CurrentPosy+1]
 
-            return "Moved P1 Right to " + str(Self.P1_Pos)
+            return "Moved P1 Right to " + str(Self.P1_Pos) ,P2_Pos
 
         else:
 
-            return "Edge of Map Right"
+            return "Edge of Map Right" ,P2_Pos
 
 
     def MoveLeft(Self):
 
+        P2_Pos = Self.MoveRandomP2()
         # Gets Current Position of P1
 
         CurrentPosx = Self.P1_Pos[0]
 
         CurrentPosy = Self.P1_Pos[1]
 
-        # Checks Edge Case Right
+        # Checks Edge Case Left
 
         if(CurrentPosy!=0):
 
@@ -105,20 +114,158 @@ class Map:
 
             Self.P1_Pos = [CurrentPosx, CurrentPosy-1]
 
-            return "Moved P1 Left to " + str(Self.P1_Pos)
+            return "Moved P1 Left to " + str(Self.P1_Pos),P2_Pos
 
         else:
 
-            return "Edge of Map Left"
+            return "Edge of Map Left",P2_Pos
+
+    def MoveUp(Self):
+
+        P2_Pos = Self.MoveRandomP2()
+        # Gets Current Position of P1
+
+        CurrentPosx = Self.P1_Pos[0]
+
+        CurrentPosy = Self.P1_Pos[1]
+
+        # Checks Edge Case Up
+
+        if (CurrentPosx != 0):
+
+            # Sets Original Pos to 0 and Moves to Next
+
+            Self.Arr[CurrentPosx][CurrentPosy] = 0
+
+            Self.Arr[CurrentPosx-1][CurrentPosy] = 1
+
+            Self.P1_Pos = [CurrentPosx-1, CurrentPosy]
+
+            return "Moved P1 Up to " + str(Self.P1_Pos),P2_Pos
+
+        else:
+
+            return "Edge of Map Up",P2_Pos
+
+    def MoveDown(Self):
+
+        P2_Pos=Self.MoveRandomP2()
+
+        # Gets Current Position of P1
+
+        CurrentPosx = Self.P1_Pos[0]
+
+        CurrentPosy = Self.P1_Pos[1]
+
+        # Checks Edge Case Up
+
+        if (CurrentPosx != ((Self.Mrows)-1)):
+
+            # Sets Original Pos to 0 and Moves to Next
+
+            Self.Arr[CurrentPosx][CurrentPosy] = 0
+
+            Self.Arr[CurrentPosx + 1][CurrentPosy] = 1
+
+            Self.P1_Pos = [CurrentPosx + 1, CurrentPosy]
+
+            return "Moved P1 Down to " + str(Self.P1_Pos),P2_Pos
+
+        else:
+
+            return "Edge of Map Down",P2_Pos
+
+        # random Movement for P2
+
+    def MoveRandomP2(Self):
+
+        CurrentPosx = Self.P2_Pos[0]
+
+        CurrentPosy = Self.P2_Pos[1]
+
+        RandDir = random.randrange(1,4,1)
+
+        # Move Right
+        if(RandDir==1):
+
+            if (CurrentPosy != ((Self.Mrows) - 1)):
+
+                # Sets Original Pos to 0 and Moves to Next
+
+                Self.Arr[CurrentPosx][CurrentPosy] = 0
+
+                Self.Arr[CurrentPosx][CurrentPosy + 1] = 2
+
+                Self.P2_Pos = [CurrentPosx, CurrentPosy + 1]
+
+                return "P2 Moved Right " + str(Self.P2_Pos)
+
+            else:
+
+                return "No Right Movement P2"
+
+        # Move Left
+        if (RandDir == 2):
+
+            if (CurrentPosy != 0):
+
+                # Sets Original Pos to 0 and Moves to Next
+
+                Self.Arr[CurrentPosx][CurrentPosy] = 0
+
+                Self.Arr[CurrentPosx][CurrentPosy - 1] = 2
+
+                Self.P2_Pos = [CurrentPosx, CurrentPosy - 1]
+
+                return "P2 Moved Left " + str(Self.P2_Pos)
+
+            else:
+
+                return "No Left Movement P2"
+
+        # Move Up
+        if (RandDir == 3):
+
+            if (CurrentPosx != 0):
+
+                # Sets Original Pos to 0 and Moves to Next
+
+                Self.Arr[CurrentPosx][CurrentPosy] = 0
+
+                Self.Arr[CurrentPosx-1][CurrentPosy] = 2
+
+                Self.P2_Pos = [CurrentPosx-1, CurrentPosy]
+
+                return "P2 Moved Up " + str(Self.P2_Pos)
+
+            else:
+
+                return "No Up Movement P2"
+
+        # Move Down
+        if (RandDir == 4):
+
+            if (CurrentPosx != ((Self.Mrows)-1)):
+
+                # Sets Original Pos to 0 and Moves to Next
+
+                Self.Arr[CurrentPosx][CurrentPosy] = 0
+
+                Self.Arr[CurrentPosx+1][CurrentPosy] = 2
+
+                Self.P2_Pos = [CurrentPosx+1, CurrentPosy]
+
+                return "P2 Moved Down " + str(Self.P2_Pos)
+
+            else:
+
+                return "No Down Movement P2"
 
 
 
+#------------TEST-------------#
 
-
-
-#----------------------------------
-
-RandomMap = Map(6,6)
+RandomMap = Map(5,5)
 
 print(RandomMap.Init_P1_Loc())
 print(RandomMap.Init_P2_Loc())
@@ -128,9 +275,16 @@ print(RandomMap.PrintMap())
 print(RandomMap.P_Dist())
 
 
+for x in range(1):
 
-for x in range(5):
-    
-    print(RandomMap.MoveRight())
+    if(RandomMap.PrintMap()!="SAME LOCATION"):
+        print((x))
+        print(RandomMap.MoveRight())
+        print(RandomMap.PrintMap())
+        print(RandomMap.P_Dist())
+        time.sleep(0.5)
+        print("\n"*1)
 
-    print(RandomMap.PrintMap())
+    else:
+
+        break

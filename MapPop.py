@@ -1,36 +1,46 @@
+# Populating Map with Terrain features #
+
 import random
+# used for Generating random initial indices
 import pprint
+import seaborn as sb
+# for heat map Generation
+import matplotlib.pyplot as plt
 
 
 
+# define Rows Cols
 
-rows,cols = 20,20
+rows,cols = 10,10
+
+# create initial Array with "0"s with length rows,cols
 
 arr = [[0 for x in range(rows)] for y in range(cols)]
 
-
-
+# Def for generating nums at random indices for init
 def randonnuminit(arrs,nums):
 
     indexs=[]
 
     for x in range(nums):
 
+
+
         randx = random.randrange(0,cols-1,1)
         randy = random.randrange(0, rows - 1, 1)
 
         if [randx,randy] not in indexs:
 
+            randval = abs(random.randrange(cols/2, cols - 1, 1))
+
             indexs.append([randx,randy])
 
-            arrs[randx][randy]=cols-1
+            arrs[randx][randy]=randval
 
     return  indexs
 
-randomindices = randonnuminit(arr,5)
-
-
-def gennums(arr,listx,nextnum):
+# Def for Generating Sloping values
+def gennums(arr,listx):
 
 
 
@@ -42,74 +52,89 @@ def gennums(arr,listx,nextnum):
         currx = x[0]
         curry = x[1]
 
-        #left
+        # Gets the curretn value of index in arr
+
+        # calculates the new value , Should be >=0
+        # for proper display in heat map
+
+        newval = abs((arr[currx][curry])-1)
+
+
+        # checking each cell from the original cell, used try to
+        #avoid checking for edge case
+
+
+        #left cell value(straight)
         try:
+            # if cell is >0 then already occupied ,Ignore
             if arr[currx+1][curry] ==0:
+                # minor edge case check
                 if currx+1>=0 and curry >=0:
-                    arr[currx+1][curry]=nextnum-1
+                    arr[currx+1][curry]=newval
+                    # add new values indices to list for Next iteration
                     localrandindices.append([currx+1,curry])
         except IndexError:
             pass
 
-        # Right
+        # Right cell value(straight)
         try:
             if arr[currx - 1][curry]==0:
                 if currx - 1 >= 0 and curry >= 0:
-                    arr[currx - 1][curry] = nextnum - 1
+                    arr[currx - 1][curry] = newval
                     localrandindices.append([currx - 1,curry])
         except IndexError:
             pass
 
-        # Top
+        # Top cell value(straight)
         try:
             if arr[currx] [curry+1]==0:
                 if currx  >= 0 and curry+1 >= 0:
-                    arr[currx ][curry+1] = nextnum - 1
+                    arr[currx ][curry+1] = newval
                     localrandindices.append([currx,curry+1] )
         except IndexError:
             pass
 
-        # Bot
+        # Bot cell value(straight)
         try:
             if arr[currx][ curry-1] ==0:
                 if currx  >= 0 and curry-1 >= 0:
-                    arr[currx ][curry-1] = nextnum - 1
+                    arr[currx ][curry-1] = newval
                     localrandindices.append([currx,curry-1])
         except IndexError:
             pass
 
-        # topleft
+        # topleft cell value(diagonal)
         try:
             if arr[currx-1][curry - 1] == 0:
                 if currx-1 >= 0 and curry - 1 >= 0:
-                    arr[currx-1][curry - 1] = nextnum - 1
+                    arr[currx-1][curry - 1] = newval
                     localrandindices.append([currx-1, curry - 1])
         except IndexError:
             pass
 
-        # topright
+        # topright cell value(diagonal)
         try:
             if arr[currx + 1][curry + 1] == 0:
                 if currx + 1 >= 0 and curry + 1 >= 0:
-                    arr[currx + 1][curry + 1] = nextnum - 1
+                    arr[currx + 1][curry + 1] = newval
                     localrandindices.append([currx + 1, curry + 1])
         except IndexError:
             pass
 
-        # botright
+        # botright cell value(diagonal)
         try:
             if arr[currx - 1][curry + 1] == 0:
                 if currx - 1 >= 0 and curry + 1 >= 0:
-                    arr[currx - 1][curry + 1] = nextnum - 1
+                    arr[currx - 1][curry + 1] = newval
                     localrandindices.append([currx - 1, curry + 1])
         except IndexError:
             pass
 
-        # botleft
+        # botleft cell value(diagonal)
         try:
             if arr[currx + 1][curry - 1] == 0:
                 if currx + 1 >= 0 and curry - 1 >= 0:
-                    arr[currx + 1][curry - 1] = nextnum - 1
+                    arr[currx + 1][curry - 1] = newval
                     localrandindices.append([currx + 1, curry - 1])
         except IndexError:
             pass
@@ -118,51 +143,27 @@ def gennums(arr,listx,nextnum):
 
 
 #-----------------------------------
-
-s1 = gennums(arr,randomindices,14)
-
-s2 = gennums(arr,s1,13)
-
-s3 = gennums(arr,s2,12)
-
-s4 = gennums(arr,s3,11)
-
-s5 = gennums(arr,s4,10)
-
-s6 = gennums(arr,s5,9)
-
-s7 = gennums(arr,s6,8)
-
-s8 = gennums(arr,s7,7)
-
-s9 = gennums(arr,s8,6)
-
-s10 = gennums(arr,s9,5)
-
-s11 = gennums(arr,s10,4)
-
-s12 = gennums(arr,s11,3)
-
-s13 = gennums(arr,s12,2)
-
-s14 = gennums(arr,s13,1)
+# Calling random values for init once
+randomindices = randonnuminit(arr,1)
 
 
+s1 = gennums(arr,randomindices)
+
+# looping n tmes to genrate terrain Nums
+for x in range(cols-1):
+
+    s2 = gennums(arr, s1)
+    s1=s2
+#------------------------------------
 
 pprint.pprint("--------------")
 
 pprint.pprint(arr)
 
+# HeatMap using Seaborn
+#heat_map = sb.heatmap(arr, cmap="Reds",annot=True)
 
-
-
-
-
-
-import seaborn as sb
-import matplotlib.pyplot as plt
-
-heat_map = sb.heatmap(arr, cmap="Reds",annot=True)
+heat_map = sb.heatmap(arr, cmap="Oranges")
 sb.set(font_scale=0.1)
 plt.show()
 
